@@ -60,7 +60,7 @@
 | street             | string     | null: false |
 | building           | string     |
 | tel                | string     | null: false |
-| purchases          | references | null: false, foreign_key: true|
+| purchase           | references | null: false, foreign_key: true|
 
   <!-- ActiveHash使用 -->
   <!-- area_id  -->
