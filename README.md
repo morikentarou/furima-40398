@@ -11,7 +11,7 @@
 | first_name         | string | null: false |
 | reading_last_name  | string | null: false |
 | reading_first_name | string | null: false |
-| birthday           | string | null: false |
+| birthday           | date   | null: false |
 
 ### Association
 - has_many :items
@@ -58,6 +58,7 @@
 | area_id            | integer    | null: false |
 | municipality       | string     | null: false |
 | street             | string     | null: false |
+| building           | string     | null: false |
 | tel                | string     | null: false |
 
   <!-- ActiveHash使用 -->
