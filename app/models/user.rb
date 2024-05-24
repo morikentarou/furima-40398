@@ -13,7 +13,7 @@ class User < ApplicationRecord
   validates :nickname,           presence: true
   validates :email,              format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   validates :password, length: { minimum: 6 }, format: { with: VALID_PASSWORD_REGEX }, confirmation: true
-  validates :last_name,           presence: true
+  validates :last_name,          presence: true
   validates :first_name,         presence: true
   validates :reading_last_name,  presence: true, format: { with: VALID_KANA_REGEX }
   validates :reading_first_name, presence: true, format: { with: VALID_KANA_REGEX }
