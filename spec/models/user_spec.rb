@@ -12,7 +12,7 @@ RSpec.describe User, type: :model do
     end
     context '新規登録できないとき' do
       it 'nicknameが空では登録できない' do
-        @user.nickname = ""
+        @user.nickname = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Nickname can't be blank")
       end
@@ -54,29 +54,29 @@ RSpec.describe User, type: :model do
       it 'emailは@が含まれないと登録できない' do
         @user.email = 'test'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email is invalid")
+        expect(@user.errors.full_messages).to include('Email is invalid')
       end
       it '同じemailは登録できない' do
         @user.save
         another_user = FactoryBot.build(:user)
         another_user.email = @user.email
         another_user.valid?
-        expect(another_user.errors.full_messages).to include("Email has already been taken")
+        expect(another_user.errors.full_messages).to include('Email has already been taken')
       end
       it 'passwordは6文字以上でないと登録できない' do
         @user.password = '1a1a'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+        expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
       end
-      it 'passwordは数字が1文字以上ないと登録できない' do
+      it 'passwordは数字がないと登録できない' do
         @user.password = 'aaaaaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
-      it 'passwordは英単語が1文字以上ないと登録できない' do
+      it 'password半角英がないと登録できない' do
         @user.password = '111111'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
       it 'passwordとpassword_confirmationが不一致では登録できない' do
         @user.password = '12345a'
@@ -87,12 +87,12 @@ RSpec.describe User, type: :model do
       it 'reading_last_nameがカタカナでないと登録できない' do
         @user.reading_last_name = '太朗'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Reading last name is invalid")
+        expect(@user.errors.full_messages).to include('Reading last name is invalid')
       end
       it 'reading_first_nameがカタカナでないと登録できない' do
         @user.reading_first_name = '太朗'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Reading first name is invalid")
+        expect(@user.errors.full_messages).to include('Reading first name is invalid')
       end
     end
   end
