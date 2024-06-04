@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function() {
 const priceInput = document.getElementById("item-price");
 priceInput.addEventListener("input", () => {
   const inputValue = priceInput.value;
@@ -8,4 +9,5 @@ priceInput.addEventListener("input", () => {
 
   const profitDom = document.getElementById("profit");
   profitDom.innerHTML = Math.floor(inputValue - (inputValue * 0.1));
+});
 });
