@@ -21,17 +21,14 @@ class ItemsController < ApplicationController
   end
 
   def show
-    user_item
   end
 
   def edit
-    user_item
   end
 
   def update
-    user_item
     if @item.update(item_params)
-      redirect_to @item
+      redirect_to item_path(@item)
     else
       render :edit
     end
