@@ -10,7 +10,7 @@ class OrderPaymentForm
   def save
     return false unless valid?
 
-    Destination.create(post_code: post_code, area_id: area_id, municipality: municipality, street: street, tel: tel)
+    Destination.create(post_code: post_code, area_id: area_id, municipality: municipality, street: street, building: building, tel: tel)
     if destination.save
       true
     else 
