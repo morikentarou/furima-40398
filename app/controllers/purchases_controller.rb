@@ -1,12 +1,31 @@
 class PurchasesController < ApplicationController
+  before_action :set_item, only: [:index, :create]
+  before_action :set_user, only: [:index, :create]
 
   def index
-    @item = Item.find(params[:item_id])
-    @purchase = Purchase.new
+    @destination_form = DestinationForm.new
   end
 
   def create
-    binding.pry
+    @destination_form = DestinationForm.new(destination_params.merge(user_id: @user.id, item_id: @item.id))
+    if @destination_form.save
+      redirect_to  root_path
+    else
+      render 'index'
+    end
   end
 
+  private
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
+  def set_user
+    @user = current_user
+  end
+
+  def destination_params
+    params.require(:destination_form).permit(:post_code, :area_id, :municipality, :street, :building, :tel)
+  end
 end
