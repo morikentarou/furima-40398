@@ -9,6 +9,9 @@ class Item < ApplicationRecord
 
   belongs_to :user
   has_one :purchase
+  def sold_out?
+    !self.purchase.nil?
+  end
 
   validates :image,                 presence: true
   validates :name,                  presence: true, length: { maximum: 40 }
