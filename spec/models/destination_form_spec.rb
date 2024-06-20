@@ -1,7 +1,9 @@
 require 'rails_helper'
-RSpec.describe Destination, type: :model do
+RSpec.describe DestinationForm, type: :model do
   before do
-    @destination = FactoryBot.build(:destination)
+    user = FactoryBot.create(:user) 
+    @item = FactoryBot.build(:item, user_id: user.id)
+    @destination = FactoryBot.build(:destination_form, item_id: @item.id)
   end
   describe '出品商品の新規登録' do
     context '新規登録できるとき' do
@@ -14,6 +16,11 @@ RSpec.describe Destination, type: :model do
       end
     end
     context '新規登録ができないとき' do
+      it 'tokenが空では登録できない' do
+        @destination.token  = nil
+        @destination.valid?
+        expect(@destination.errors.full_messages).to include("Token can't be blank")
+      end
       it 'post_codeが空では登録できない' do
         @destination.post_code  = nil
         @destination.valid?
