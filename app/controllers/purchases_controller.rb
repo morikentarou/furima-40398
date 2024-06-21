@@ -1,10 +1,15 @@
 class PurchasesController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :create]
   before_action :set_item, only: [:index, :create]
   before_action :set_user, only: [:index, :create]
 
   def index
-    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-    @destination_form = DestinationForm.new
+    if current_user == @item.user || @item.purchase.present?
+      redirect_to root_path
+    else
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
+      @destination_form = DestinationForm.new
+    end
   end
 
   def create
