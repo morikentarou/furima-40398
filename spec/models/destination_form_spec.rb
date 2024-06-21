@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe DestinationForm, type: :model do
   before do
-    user = FactoryBot.create(:user) 
+    user = FactoryBot.create(:user)
     @item = FactoryBot.build(:item, user_id: user.id)
     @destination = FactoryBot.build(:destination_form, item_id: @item.id)
   end
@@ -17,44 +17,45 @@ RSpec.describe DestinationForm, type: :model do
     end
     context '新規登録ができないとき' do
       it 'tokenが空では登録できない' do
-        @destination.token  = nil
+        @destination.token = nil
         @destination.valid?
         expect(@destination.errors.full_messages).to include("Token can't be blank")
       end
       it 'post_codeが空では登録できない' do
-        @destination.post_code  = nil
+        @destination.post_code = nil
         @destination.valid?
-        expect(@destination.errors.full_messages).to include("Post code can't be blank","Post code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@destination.errors.full_messages).to include("Post code can't be blank",
+                                                             'Post code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it 'area_idが空では登録できない' do
-        @destination.area_id  = nil
+        @destination.area_id = nil
         @destination.valid?
         expect(@destination.errors.full_messages).to include("Area can't be blank")
       end
       it 'municipalityが空では登録できない' do
-        @destination.municipality  = nil
+        @destination.municipality = nil
         @destination.valid?
         expect(@destination.errors.full_messages).to include("Municipality can't be blank")
       end
       it 'streetが空では登録できない' do
-        @destination.street  = nil
+        @destination.street = nil
         @destination.valid?
         expect(@destination.errors.full_messages).to include("Street can't be blank")
       end
       it 'telが空では登録できない' do
-        @destination.tel  = nil
+        @destination.tel = nil
         @destination.valid?
         expect(@destination.errors.full_messages).to include("Tel can't be blank")
       end
       it 'post_codeが3桁ハイフン4桁でないと登録できない' do
-        @destination.post_code  = 1234567
+        @destination.post_code = 1_234_567
         @destination.valid?
-        expect(@destination.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@destination.errors.full_messages).to include('Post code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it 'post_codeが半角文字列でないと登録できない' do
-        @destination.post_code  = "１２３－４５６７"
+        @destination.post_code = '１２３－４５６７'
         @destination.valid?
-        expect(@destination.errors.full_messages).to include("Post code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@destination.errors.full_messages).to include('Post code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it 'area_idが---では登録できない' do
         @destination.area_id = 1
@@ -62,19 +63,19 @@ RSpec.describe DestinationForm, type: :model do
         expect(@destination.errors.full_messages).to include("Area can't be blank")
       end
       it 'telが10桁以上でないと登録できない' do
-        @destination.tel  = 100_000_000
+        @destination.tel = 100_000_000
         @destination.valid?
-        expect(@destination.errors.full_messages).to include("Tel is too short (minimum is 10 characters)")
+        expect(@destination.errors.full_messages).to include('Tel is too short (minimum is 10 characters)')
       end
       it 'telが11桁以内でないと登録できない' do
-        @destination.tel  = 100_000_000_000
+        @destination.tel = 100_000_000_000
         @destination.valid?
-        expect(@destination.errors.full_messages).to include("Tel is too long (maximum is 11 characters)")
+        expect(@destination.errors.full_messages).to include('Tel is too long (maximum is 11 characters)')
       end
       it 'telが半角数値でないと登録できない' do
-        @destination.tel  = "００００００００００"
+        @destination.tel = '００００００００００'
         @destination.valid?
-        expect(@destination.errors.full_messages).to include("Tel is invalid. Input half-width numbers.")
+        expect(@destination.errors.full_messages).to include('Tel is invalid. Input half-width numbers.')
       end
     end
   end

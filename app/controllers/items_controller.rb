@@ -59,7 +59,7 @@ class ItemsController < ApplicationController
 
   def sold_out_index
     return unless @item.sold_out?
+
     redirect_to action: :index
   end
-  
 end

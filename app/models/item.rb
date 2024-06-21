@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one :purchase
   def sold_out?
-    !self.purchase.nil?
+    !purchase.nil?
   end
 
   validates :image,                 presence: true
