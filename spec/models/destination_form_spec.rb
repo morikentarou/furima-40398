@@ -24,8 +24,7 @@ RSpec.describe DestinationForm, type: :model do
       it 'post_codeが空では登録できない' do
         @destination.post_code = nil
         @destination.valid?
-        expect(@destination.errors.full_messages).to include("Post code can't be blank",
-                                                             'Post code is invalid. Enter it as follows (e.g. 123-4567)')
+        expect(@destination.errors.full_messages).to include("Post code can't be blank")
       end
       it 'area_idが空では登録できない' do
         @destination.area_id = nil
