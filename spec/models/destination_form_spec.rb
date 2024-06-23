@@ -2,9 +2,9 @@ require 'rails_helper'
 RSpec.describe DestinationForm, type: :model do
   before do
     user = FactoryBot.create(:user)
-    @item = FactoryBot.build(:item, user_id: user.id)
-    @destination = FactoryBot.build(:destination_form, item_id: @item.id)
-  end
+    item = FactoryBot.create(:item, user_id: user.id)
+    @purchase = FactoryBot.create(:purchase, item_id: item.id)
+    @destination = FactoryBot.build(:destination_form, user_id: @purchase.user_id, item_id: @purchase.item_id, purchase_id: @purchase.id)  end
   describe '出品商品の新規登録' do
     context '新規登録できるとき' do
       it 'すべての値が存在すれば登録できる' do
@@ -16,6 +16,16 @@ RSpec.describe DestinationForm, type: :model do
       end
     end
     context '新規登録ができないとき' do
+      it 'user_idが空では登録できない' do
+        @destination.user_id = nil
+        @destination.valid?
+        expect(@destination.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空では登録できない' do
+        @destination.item_id = nil
+        @destination.valid?
+        expect(@destination.errors.full_messages).to include("Item can't be blank")
+      end
       it 'tokenが空では登録できない' do
         @destination.token = nil
         @destination.valid?
@@ -47,7 +57,7 @@ RSpec.describe DestinationForm, type: :model do
         expect(@destination.errors.full_messages).to include("Tel can't be blank")
       end
       it 'post_codeが3桁ハイフン4桁でないと登録できない' do
-        @destination.post_code = 1_234_567
+        @destination.post_code = '1234567'
         @destination.valid?
         expect(@destination.errors.full_messages).to include('Post code is invalid. Enter it as follows (e.g. 123-4567)')
       end
@@ -62,12 +72,12 @@ RSpec.describe DestinationForm, type: :model do
         expect(@destination.errors.full_messages).to include("Area can't be blank")
       end
       it 'telが10桁以上でないと登録できない' do
-        @destination.tel = 100_000_000
+        @destination.tel = '100000000'
         @destination.valid?
         expect(@destination.errors.full_messages).to include('Tel is too short (minimum is 10 characters)')
       end
       it 'telが11桁以内でないと登録できない' do
-        @destination.tel = 100_000_000_000
+        @destination.tel = '100000000000'
         @destination.valid?
         expect(@destination.errors.full_messages).to include('Tel is too long (maximum is 11 characters)')
       end
