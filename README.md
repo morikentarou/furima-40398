@@ -38,7 +38,7 @@
 - belongs_to :user
 - has_one :purchase
 
-## purchases テーブル
+## purchases(購入) テーブル
 
 | Column             | Type       | Options     |
 | ------------------ | ---------- | ----------- |
@@ -50,7 +50,7 @@
 - belongs_to :item
 - has_one :destination
 
-## destinations テーブル
+## destinations(目的地) テーブル
 
 | Column             | Type       | Options     |
 | ------------------ | ---------- | ----------- |
