@@ -67,3 +67,6 @@
 
 ### Association
 - belongs_to :purchase
+
+
+![alt text](furima-40398.png)
